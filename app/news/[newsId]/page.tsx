@@ -1,42 +1,3 @@
-// import Image from "next/image";
-
-// interface News {
-//   title: string;
-//   text: string;
-//   imageUrl: string;
-// }
-
-// interface PageProps {
-//   params: Promise<{ newsId: string }>;
-// }
-
-// const NewsDetail = async ({ params }: PageProps) => {
-//   const { newsId } = await params;
-//   const res = await fetch(
-//     `https://news-api-v2.vercel.app/api/article/${newsId}`,
-//   );
-
-//   const data = await res.json();
-//   const news: News = data.data;
-//   if (!news) {
-//     return (
-//       <div className="max-w-7xl mx-auto py-10 text-center">
-//         <h2>News not found!</h2>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="max-w-7xl mx-auto">
-//       <h1>{news.title}</h1>
-//       <Image src={news.imageUrl} alt="img" width={600} height={600} />
-//       <p>{news.text}</p>
-//     </div>
-//   );
-// };
-
-// export default NewsDetail;
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -59,7 +20,7 @@ const NewsDetail = async ({ params }: PageProps) => {
     `https://news-api-v2.vercel.app/api/article/${newsId}`,
     {
       next: { revalidate: 60 },
-    }
+    },
   );
 
   const data = await res.json();

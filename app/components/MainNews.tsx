@@ -1,57 +1,3 @@
-// import Image from "next/image";
-// import Link from "next/link";
-// interface News {
-//   imageUrl: string;
-//   title: string;
-//   description: string;
-//   category: string;
-//   id: number;
-// }
-
-// const MainNews = ({ news }: { news: News[] }) => {
-//   const [firstNews, ...otherNews] = news;
-//   //   const otherNews = news.slice(1)
-//   return (
-//     <div className="flex gap-3">
-//       <Link href={`/news/${firstNews.id}`}>
-//         <div className="card bg-base-100 w-96 shadow-sm">
-//           <figure>
-//             <Image
-//               src={firstNews.imageUrl}
-//               height={500}
-//               width={500}
-//               alt="img url"
-//             />
-//           </figure>
-//           <div className="card-body">
-//             <p className="text-red-600">{firstNews.category}</p>
-//             <h2 className="card-title">{firstNews.title}</h2>
-//             <p>{firstNews.description}</p>
-//           </div>
-//         </div>
-//       </Link>
-
-//       <div className="grid gap-2">
-        
-//           {otherNews.slice(0, 4).map((news) => (
-//             <div
-//               className="card bg-base-100 border border-gray-400 p-5 "
-//               key={news.id}
-//             >
-//               <p className="text-red-600">{firstNews.category}</p>
-//               <Link href={`/news/${news.id}`}><div className="hover:text-red-600">{news.title}</div></Link>
-//             </div>
-//         ))}
-        
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default MainNews;
-
-
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -70,7 +16,6 @@ const MainNews = ({ news }: { news: News[] }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-      
       {/* Featured Big News (Left Side) */}
       <div className="md:col-span-7">
         <Link href={`/news/${firstNews.id}`} className="group block h-full">
@@ -116,7 +61,6 @@ const MainNews = ({ news }: { news: News[] }) => {
           </div>
         ))}
       </div>
-
     </div>
   );
 };
