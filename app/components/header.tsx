@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import NavLinks, { Navs } from "./NavLinks";
+import UserInfo from "./UserInfo";
 
 const HeaderPage = async () => {
   const res = await fetch("https://news-api-v2.vercel.app/api/categories", {
@@ -37,14 +38,7 @@ const HeaderPage = async () => {
             </div>
           </Link>
 
-          <div className="flex items-center gap-2 md:gap-3">
-            <button className="text-xs md:text-sm font-medium text-gray-700 hover:text-red-700 transition-colors px-2 py-1.5 cursor-pointer">
-              সাইন ইন
-            </button>
-            <button className="bg-red-700 hover:bg-red-800 text-white font-medium text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 rounded-md transition-colors cursor-pointer">
-              সাইন আপ
-            </button>
-          </div>
+          <UserInfo></UserInfo>
         </div>
 
         {/* Navigation Bar */}
