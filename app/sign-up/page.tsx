@@ -1,11 +1,14 @@
 "use client";
 import { authClient, signUp } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const SignUpPage = () => {
-  const handleSignUp = async (e: React.SubmitEvent<HTMLElement>) => {
+  const router = useRouter();
+
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget as HTMLFormElement);
+    const formData = new FormData(e.currentTarget);
     const userData = Object.fromEntries(formData.entries()) as {
       name: string;
       email: string;
@@ -15,21 +18,27 @@ const SignUpPage = () => {
 
     const { data, error } = await signUp.email({
       ...userData,
-      callbackURL: "/",
     });
-    if (data) {
-      console.log(data);
-      redirect("/");
-    }
+
     if (error) {
+      toast.error(error.message || "Registration failed!");
       console.log(error);
+      return;
+    }
+
+    if (data) {
+      toast.success("Registration Successful! Please Sign In.");
+      await authClient.signOut();
+      router.push("/sign-in");
     }
   };
-  const hendleSignUpGoogle = async () => {
+
+  const handleSignUpGoogle = async () => {
     await authClient.signIn.social({
       provider: "google",
     });
   };
+
   return (
     <div className="flex flex-col items-center justify-center mt-5">
       <h2 className="text-2xl font-bold text-red-700">সাইন আপ</h2>
@@ -41,14 +50,7 @@ const SignUpPage = () => {
             name="name"
             className="input w-md"
             placeholder="Name"
-          />
-
-          <label className="label">ImageURL</label>
-          <input
-            type="url"
-            name="image"
-            className="input w-md"
-            placeholder="Image"
+            required
           />
 
           <label className="label">ইমেইল</label>
@@ -58,15 +60,17 @@ const SignUpPage = () => {
             type="email"
             className="input w-md"
             placeholder="Email"
+            required
           />
 
-          <label className="label">পাসওয়ার্ড</label>
+          <label className="label">পাসওয়ার্ড</label>
           <input
             autoComplete="new-password"
             type="password"
             className="input w-md"
             name="password"
             placeholder="Password"
+            required
           />
 
           <button type="submit" className="btn bg-red-500 text-white mt-4">
@@ -74,7 +78,10 @@ const SignUpPage = () => {
           </button>
         </fieldset>
       </form>
-      <button onClick={hendleSignUpGoogle} className="btn ">Sign up With Google</button>
+
+      <button onClick={handleSignUpGoogle} className="btn mt-3">
+        Sign up With Google
+      </button>
     </div>
   );
 };
